@@ -1,0 +1,32 @@
+Play
+Settings
+Exit
+Continue
+New Game
+Reset
+Koop
+Back
+Host
+Connect
+Music
+Language
+Off
+Main
+Button
+Sound
+Играть
+Параметры
+Выход
+Продолжить
+Новая игра
+Обнулить
+Кооп
+Назад
+Создать
+Подключиться
+Музыка
+Язык
+Выключить
+Основой
+Кнопки
+Звук

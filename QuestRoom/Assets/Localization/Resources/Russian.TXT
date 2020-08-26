@@ -1,0 +1,16 @@
+play%Играть
+settings%Параметры
+back%Назад
+exit%Выход
+continue%Продолжить
+newgame%Новая Игра
+reset%Очистить
+koop%Кооп
+host%Создать
+join%Коннект
+russian%Русский
+english%Английский
+language%Язык
+music%Музыка
+offmusic%Выкл музыку
+offbutton%Выкл Звук Кнопок

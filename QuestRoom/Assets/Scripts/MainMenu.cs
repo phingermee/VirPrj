@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Localization;
+
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,4 +16,17 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+
+    public void SetEnglish()
+    {
+        LocalizeBase.SetCurrentLanguage(SystemLanguage.English);
+    }
+
+    public void SetRussian()
+    {
+        LocalizeBase.SetCurrentLanguage(SystemLanguage.Russian);
+    }
+
 }
+

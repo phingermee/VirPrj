@@ -1,0 +1,16 @@
+play%Play
+settings%Settings
+back%Back
+exit%Exit
+continue%Continue
+newgame%New Game
+reset%Reset
+koop%Koop
+host%Host
+join%Connect
+russian%Russian
+english%English
+language%Language
+music%Music
+offmusic%Off Main Music
+offbutton%Off Button Sound

@@ -5,7 +5,7 @@ using UnityEngine;
 public class VolumeSlider : MonoBehaviour
 {
     private AudioSource audioSrc;
-    private float musicValue = 1;
+    private float musicValue = 0.3f;
 
     public void SetValue(float val)
     {
