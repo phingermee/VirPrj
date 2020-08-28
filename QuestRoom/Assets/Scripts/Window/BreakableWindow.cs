@@ -234,7 +234,7 @@ public class BreakableWindow : MonoBehaviour {
     }
 
 
-    void OnCollisionEnter(Collision col)
+    /*void OnCollisionEnter(Collision col)
     {
         if (useCollision == true)
         {
@@ -249,5 +249,5 @@ public class BreakableWindow : MonoBehaviour {
             }
             else breakWindow();
         }        
-    }
+    }*/
 }
