@@ -23,7 +23,7 @@ public class TakeAndHit : MonoBehaviour
         {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.collider.tag == "Damage")
             {
                 mode.CrowbarMode();
             }
