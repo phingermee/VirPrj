@@ -59,7 +59,6 @@ public class Modes : MonoBehaviour
         AudioSource audioSrc = GetComponent<AudioSource>();
         float musicVolume = 0.5f;
         audioSrc.volume = musicVolume;
-        Debug.Log($"Громкость: {audioSrc.volume}");
     }
 
     public void Check()
