@@ -5,8 +5,8 @@ using UnityEngine;
 [AddComponentMenu("Breakable Windows/Breakable Window")]
 [RequireComponent(typeof(AudioSource))]
 public class BreakableWindow : MonoBehaviour {
+    Modes mode;
 
-    
     [Tooltip("Layer should be TransparentFX or your own layer for breakable windows.")]
     public LayerMask layer;
     [Range(2,25)]
@@ -49,6 +49,7 @@ public class BreakableWindow : MonoBehaviour {
 
     void Start()
     {
+        mode = GameObject.FindGameObjectWithTag("GameController").GetComponent<Modes>();
         if (preCalculate == true && allreadyCalculated == false)
         {
             bakeVertices();
@@ -236,6 +237,7 @@ public class BreakableWindow : MonoBehaviour {
         if (other.gameObject.tag == "Damage")
         {
             breakWindow();
+            mode.LoudStreetMode();
         }
     }
 }

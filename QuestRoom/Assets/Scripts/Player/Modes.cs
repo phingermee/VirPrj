@@ -15,6 +15,8 @@ public class Modes : MonoBehaviour
         _camera = GameObject.FindGameObjectWithTag("MainCamera");
         isClickModeActive = false;
     }
+    
+    //Режим сбора предметов (игрок "заморожен", курсор активен)
     public void ClickMode()
     {
         FPSInput moving = _player.GetComponent<FPSInput>();
@@ -41,6 +43,7 @@ public class Modes : MonoBehaviour
         
     }
 
+    //Режим монтировки (монтировка в руках, можно разрушить окно)
     public void CrowbarMode()
     {
         GameObject crowbar = GameObject.FindGameObjectWithTag("Damage");
@@ -48,7 +51,15 @@ public class Modes : MonoBehaviour
         crowbar.transform.SetParent(_player.GetComponent<Transform>());
         crowbar.transform.position = weaponPoint.transform.position;
         crowbar.transform.rotation = weaponPoint.transform.rotation;
-        //crowbar.transform.Rotate(-90, 0, -73);
+    }
+
+    //Режим громкой улицы (когда окно разбито)
+    public void LoudStreetMode()
+    {
+        AudioSource audioSrc = GetComponent<AudioSource>();
+        float musicVolume = 0.5f;
+        audioSrc.volume = musicVolume;
+        Debug.Log($"Громкость: {audioSrc.volume}");
     }
 
     public void Check()
