@@ -191,10 +191,6 @@ public class BreakableWindow : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Breaks the window and returns an array of all splinter gameobjects.
-    /// </summary>
-    /// <returns>Returns an array of all splinter gameobjects.</returns>
     public GameObject[] breakWindow()
     {
         if (isBroken == false)
@@ -234,20 +230,12 @@ public class BreakableWindow : MonoBehaviour {
     }
 
 
-    /*void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider other)
     {
-        if (useCollision == true)
+        //Окно можно разбить только предметами с тегом "Damage" (конкретно в нашем случае - монтировкой)
+        if (other.gameObject.tag == "Damage")
         {
-            if (health > 0)
-            {
-                health -= col.impulse.magnitude;
-                if (health < 0)
-                {
-                    health = 0;
-                    breakWindow();
-                }
-            }
-            else breakWindow();
-        }        
-    }*/
+            breakWindow();
+        }
+    }
 }

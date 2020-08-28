@@ -44,6 +44,8 @@ public class FPSInput : MonoBehaviour
             //Переключаемся в режим сбора предметов
             mode.ClickMode();
         }
+
+        
     }
 
     

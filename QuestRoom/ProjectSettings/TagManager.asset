@@ -8,6 +8,7 @@ TagManager:
   - AmmoBox
   - TV
   - Damage
+  - WeaponPoint
   layers:
   - Default
   - TransparentFX
