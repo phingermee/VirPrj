@@ -9,6 +9,7 @@ TagManager:
   - TV
   - Damage
   - WeaponPoint
+  - Stars
   layers:
   - Default
   - TransparentFX

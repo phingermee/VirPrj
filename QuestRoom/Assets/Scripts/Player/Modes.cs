@@ -5,42 +5,50 @@ using UnityEngine.Video;
 
 public class Modes : MonoBehaviour
 {
-    bool isClickModeActive;
-    GameObject _player;
-    GameObject _camera;
+    bool isClickModeActive = false;
+    bool isPauseActive = false;
+    public GameObject _player;
+    public GameObject _camera;
+    public GameObject menuUI;
 
-    private void Start()
-    {
-        _player = GameObject.FindGameObjectWithTag("Player");
-        _camera = GameObject.FindGameObjectWithTag("MainCamera");
-        isClickModeActive = false;
-    }
-    
     //Режим сбора предметов (игрок "заморожен", курсор активен)
     public void ClickMode()
     {
         FPSInput moving = _player.GetComponent<FPSInput>();
-        MouseLook rotationX = _player.GetComponent<MouseLook>();
-        MouseLook rotationY = _camera.GetComponent<MouseLook>();
-        
+        MouseLook _rotation = _camera.GetComponent<MouseLook>();
 
-        if (isClickModeActive)
-        {
-            moving.movingAbility = 1;
-            rotationX.rotationAbility = 1;
-            rotationY.rotationAbility = 1;
-            isClickModeActive = !isClickModeActive;
-            Cursor.visible = false;
-        }
-        else
-        {
-            moving.movingAbility = 0;
-            rotationX.rotationAbility = 0;
-            rotationY.rotationAbility = 0;
-            isClickModeActive = !isClickModeActive;
-            Cursor.visible = true;
-        }
-        
+            if (isClickModeActive)
+            {
+                isClickModeActive = !isClickModeActive;
+                moving.movingAbility = 1;
+                _rotation.rotationAbility = 1;
+                Cursor.visible = false;
+            }
+            else
+            {
+                isClickModeActive = !isClickModeActive;
+                moving.movingAbility = 0;
+                _rotation.rotationAbility = 0;
+                Cursor.visible = true;
+            }
+    }
+
+    public void pauseMenuMode()
+    {
+            if (isPauseActive)
+            {
+                isPauseActive = false;
+                menuUI.SetActive(false);
+                Time.timeScale = 1f;
+                ClickMode();
+            }
+            else
+            {
+                isPauseActive = true;
+                menuUI.SetActive(true);
+                Time.timeScale = 0f;
+                ClickMode();
+            }
     }
 
     //Режим монтировки (монтировка в руках, можно разрушить окно)

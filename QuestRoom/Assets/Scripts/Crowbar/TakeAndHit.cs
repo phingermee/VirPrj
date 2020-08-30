@@ -23,6 +23,7 @@ public class TakeAndHit : MonoBehaviour
         {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+            //Смотрим, было ли столкновение луча с монтировкой (помечена тегом "Damage")
             if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.collider.tag == "Damage")
             {
                 mode.CrowbarMode();
