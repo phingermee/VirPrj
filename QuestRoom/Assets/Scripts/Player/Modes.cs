@@ -7,10 +7,12 @@ public class Modes : MonoBehaviour
 {
     bool isClickModeActive = false;
     bool isPauseActive = false;
+    bool isGasActive = false;
     public bool isSeifOpen = false;
     public bool iscodeLockActive = false;
     public GameObject _player;
     public GameObject _camera;
+    public GameObject ventilationGrid;
     public GameObject menuUI;
 
     //Режим сбора предметов (игрок "заморожен", курсор активен)
@@ -69,6 +71,7 @@ public class Modes : MonoBehaviour
         AudioSource audioSrc = GetComponent<AudioSource>();
         float musicVolume = 0.5f;
         audioSrc.volume = musicVolume;
+        GasMode();
     }
 
     //Режим работы с кодовы замком
@@ -76,9 +79,25 @@ public class Modes : MonoBehaviour
     {
         if (!iscodeLockActive && !isSeifOpen)
         {
-            GameObject codeLock = Instantiate(Resources.Load("Prefabs/CodeLock", typeof(GameObject)), _camera.GetComponent<Transform>()) as GameObject;
-            codeLock.GetComponent<Canvas>().worldCamera = _camera.GetComponent<Camera>();
+            GameObject codeLock = Instantiate(Resources.Load("Prefabs/CodeLock", typeof(GameObject)), _player.GetComponent<Transform>()) as GameObject;
             iscodeLockActive = true;
+        }
+    }
+
+    //Режим отравляющего газа
+    public void GasMode()
+    {
+        StopGas gasScript = ventilationGrid.GetComponent<StopGas>();
+        if (!isGasActive)
+        {
+            gasScript.shoulWeStopIt = false;
+            gasScript.GasIsOn();
+            isGasActive = true;
+        }
+        else
+        {
+            gasScript.shoulWeStopIt = true;
+            isGasActive = false;
         }
     }
 }

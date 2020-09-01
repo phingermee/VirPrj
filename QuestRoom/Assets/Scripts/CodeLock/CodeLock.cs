@@ -18,7 +18,7 @@ public class CodeLock : MonoBehaviour
     Modes mode;
     //Загоняем код в список по циферькам
     private List<int> code = new List<int>{1,2,3};
-    //Счётчик, который определяет, какой по счёту симвл кода вводится
+    //Счётчик, который определяет, какой по счёту символ кода вводится
     private int index = 0;
 
     private void Start()
