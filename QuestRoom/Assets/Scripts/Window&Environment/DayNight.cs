@@ -20,6 +20,11 @@ public class DayNight : MonoBehaviour
     public Light lightOne;
     public Light lightTwo;
 
+    private void Start()
+    {
+        stars.GetComponent<ParticleSystem>().Play();
+    }
+
     void Update()
     {
         Vector3 center = centerPoint.transform.position;
@@ -37,7 +42,6 @@ public class DayNight : MonoBehaviour
             stars.GetComponent<ParticleSystem>().Stop();
             //Выключаем лампочку
             bulb.GetComponent<Light>().range = 0;
-            Debug.Log("DAY");
         }
         else if (sun.transform.position.y < 5 && isDayNow)
         {
@@ -46,7 +50,6 @@ public class DayNight : MonoBehaviour
             stars.GetComponent<ParticleSystem>().Play();
             //Включаем лампочку
             bulb.GetComponent<Light>().range = 8;
-            Debug.Log("NIGHT");
         }
     }
 }

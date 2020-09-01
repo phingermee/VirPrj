@@ -18,15 +18,20 @@ public class TakeAndHit : MonoBehaviour
 
     void Update()
     {
-        //Если игрок кликнул на монтировку в режиме сбора предметов, включается Режим Монтировки (позволяет разбить окно)
+        //Если игрок кликнул на сюжетный объект в режиме сбора предметов, включается соответствубщий режим
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             //Смотрим, было ли столкновение луча с монтировкой (помечена тегом "Damage")
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.collider.tag == "Damage")
+            if (Physics.Raycast(ray, out hit, 2) && hit.collider.tag == "Damage")
             {
                 mode.CrowbarMode();
+            }
+            //Смотрим, было ли столкновение луча с крышкой сейфа (помечена тегом "Cap")
+            else if (Physics.Raycast(ray, out hit, 2) && hit.collider.tag == "Cap")
+            {
+                mode.SeifLockMode();
             }
         }
     }

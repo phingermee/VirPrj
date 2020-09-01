@@ -203,7 +203,11 @@ public class BreakableWindow : MonoBehaviour {
                 {
                     for (int i = 0; i < splinters.Count; i++)
                     {
-                        splinters[i].GetComponent<Rigidbody>().AddTorque(new Vector3(Random.value > 0.5f ? Random.value * 50 : -Random.value * 50, Random.value > 0.5f ? Random.value * 50 : -Random.value * 50, Random.value > 0.5f ? Random.value * 50 : -Random.value * 50));
+                        var rb = splinters[i].GetComponent<Rigidbody>();
+                        if (rb != null)
+                        {
+                            rb.AddTorque(new Vector3(Random.value > 0.5f ? Random.value * 50 : -Random.value * 50, Random.value > 0.5f ? Random.value * 50 : -Random.value * 50, Random.value > 0.5f ? Random.value * 50 : -Random.value * 50));
+                        }
                     }
                 }
             }
@@ -229,6 +233,11 @@ public class BreakableWindow : MonoBehaviour {
 
         return splinters.ToArray();
     }
+    IEnumerator ClearWindow()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(this.gameObject);
+    }
 
 
     private void OnTriggerEnter(Collider other)
@@ -237,6 +246,7 @@ public class BreakableWindow : MonoBehaviour {
         if (other.gameObject.tag == "Damage")
         {
             breakWindow();
+            StartCoroutine(ClearWindow());
             mode.LoudStreetMode();
         }
     }

@@ -10,6 +10,8 @@ TagManager:
   - Damage
   - WeaponPoint
   - Stars
+  - Cap
+  - PanelPoint
   layers:
   - Default
   - TransparentFX
