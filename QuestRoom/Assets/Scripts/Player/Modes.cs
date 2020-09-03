@@ -8,6 +8,7 @@ public class Modes : MonoBehaviour
 {
     bool isClickModeActive = false;
     bool isPauseActive = false;
+    bool isTVActive = false;
     public bool isGasActive = false;
     public bool isSeifOpen = false;
     public bool isDoorOpen = false;
@@ -19,6 +20,7 @@ public class Modes : MonoBehaviour
     public GameObject laptop;
     public GameObject ventilationGrid;
     public GameObject menuUI;
+    public GameObject TV;
     public Vector3 oldPosition;
 
     //Режим сбора предметов (игрок "заморожен", курсор активен)
@@ -138,6 +140,20 @@ public class Modes : MonoBehaviour
         }
     }
 
+    public void TVMode()
+    {
+        if (!isTVActive)
+        {
+            TV.transform.GetChild(1).gameObject.SetActive(true);
+            isTVActive = true;
+        }
+        else
+        {
+            TV.transform.GetChild(1).gameObject.SetActive(false);
+            isTVActive = false;
+        }
+    }
+
     void Update()
     {
         //Если игрок кликнул на сюжетный объект в режиме сбора предметов, включается соответствубщий режим
@@ -164,6 +180,10 @@ public class Modes : MonoBehaviour
             else if (Physics.Raycast(ray, out hit, 14) && hit.collider.tag == "Laptop")
             {
                 LaptopMode();
+            }
+            else if (Physics.Raycast(ray, out hit, 14) && hit.collider.name == "TVButton")
+            {
+               TVMode();
             }
         }
 
