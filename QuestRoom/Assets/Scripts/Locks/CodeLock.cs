@@ -11,7 +11,7 @@ public class CodeLock : MonoBehaviour
     public AudioClip error;
     public AudioClip success;
     //Ссылка на крышку люка
-    GameObject cap;
+    GameObject door;
     //Ссылка на жкран кодового замка
     Transform inputPanel;
     //Ссылка на скрипт с режимами игры
@@ -24,7 +24,7 @@ public class CodeLock : MonoBehaviour
     private void Start()
     {
         inputPanel = transform.GetChild(0);
-        cap = GameObject.FindGameObjectWithTag("Cap");
+        door = GameObject.FindGameObjectWithTag("Finish");
         mode = GameObject.FindGameObjectWithTag("GameController").GetComponent<Modes>();
     }
 
@@ -41,7 +41,7 @@ public class CodeLock : MonoBehaviour
                 {
                     audio.PlayOneShot(success);
                     index = 0;
-                    StartCoroutine(OpenBox());
+                    StartCoroutine(OpenDoor());
                 }
             }
         //А вот если введённая циферька НЕ соотвествует очередному символу кода, то экран замка загорается красным
@@ -63,17 +63,17 @@ public class CodeLock : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    IEnumerator OpenBox()
+    IEnumerator OpenDoor()
     {
         GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
         //Эффектно открываем крышку сейфа и удвигаем кодовый замок
         for (int i = 0; i < 90; i++)
         {
             transform.Translate(new Vector3(0.01f,0,0));
-            cap.transform.Rotate(new Vector3(-1, 0, 0));
+            door.transform.GetChild(0).transform.Rotate(new Vector3(0, 0, 1));
             yield return new WaitForFixedUpdate();
         }
-        mode.isSeifOpen = true;
+        mode.isDoorOpen = true;
         Exit();
     }
 

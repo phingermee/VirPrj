@@ -29,9 +29,13 @@ public class TakeAndHit : MonoBehaviour
                 mode.CrowbarMode();
             }
             //Смотрим, было ли столкновение луча с крышкой сейфа (помечена тегом "Cap")
-            else if (Physics.Raycast(ray, out hit, 2) && hit.collider.tag == "Cap")
+            else if (Physics.Raycast(ray, out hit, 2) && hit.collider.tag == "Finish")
             {
-                mode.SeifLockMode();
+                mode.DoorLockMode();
+            }
+            else if (Physics.Raycast(ray, out hit, 14) && hit.collider.tag == "Laptop")
+            {
+                mode.LaptopMode();
             }
         }
     }

@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using UnityEngine.EventSystems;
 
 public class Modes : MonoBehaviour
 {
     bool isClickModeActive = false;
     bool isPauseActive = false;
-    bool isGasActive = false;
+    public bool isGasActive = false;
     public bool isSeifOpen = false;
+    public bool isDoorOpen = false;
     public bool iscodeLockActive = false;
+    public bool _isBoxLockActive = false;
+    public bool isLaptopModeActive = false;
     public GameObject _player;
     public GameObject _camera;
+    public GameObject laptop;
     public GameObject ventilationGrid;
     public GameObject menuUI;
+    public Vector3 oldPosition;
 
     //Режим сбора предметов (игрок "заморожен", курсор активен)
     public void ClickMode()
@@ -37,6 +43,7 @@ public class Modes : MonoBehaviour
         }
     }
 
+    //Активно меню паузы
     public void PauseMenuMode()
     {
         if (isPauseActive)
@@ -77,7 +84,16 @@ public class Modes : MonoBehaviour
     //Режим работы с кодовы замком
     public void SeifLockMode()
     {
-        if (!iscodeLockActive && !isSeifOpen)
+        if (!_isBoxLockActive && !isSeifOpen)
+        {
+            GameObject codeLock = Instantiate(Resources.Load("Prefabs/BoxLock", typeof(GameObject)), _player.GetComponent<Transform>()) as GameObject;
+            _isBoxLockActive = true;
+        }
+    }
+
+    public void DoorLockMode()
+    {
+        if (!iscodeLockActive && !isDoorOpen)
         {
             GameObject codeLock = Instantiate(Resources.Load("Prefabs/CodeLock", typeof(GameObject)), _player.GetComponent<Transform>()) as GameObject;
             iscodeLockActive = true;
@@ -98,6 +114,63 @@ public class Modes : MonoBehaviour
         {
             gasScript.shoulWeStopIt = true;
             isGasActive = false;
+        }
+    }
+
+    //Режим работы с ноутбуком
+    public void LaptopMode()
+    {
+        if (!isLaptopModeActive)
+        {
+            oldPosition = laptop.transform.position;
+            laptop.transform.SetParent(_player.GetComponent<Transform>());
+            laptop.transform.SetPositionAndRotation(_player.transform.position, new Quaternion(0, 0, 0, 0));
+            laptop.transform.Translate(0.05f, 0.3f, 0.05f);
+            laptop.transform.Rotate(0, 180, 0);
+            isLaptopModeActive = true;
+        }
+        else
+        {
+            Transform plotThing = GameObject.Find("PlotThings").GetComponent<Transform>();
+            laptop.transform.SetParent(plotThing);
+            laptop.transform.position = oldPosition;
+            isLaptopModeActive = false;
+        }
+    }
+
+    void Update()
+    {
+        //Если игрок кликнул на сюжетный объект в режиме сбора предметов, включается соответствубщий режим
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = _camera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            //Смотрим, было ли столкновение луча с монтировкой (помечена тегом "Damage")
+            if (Physics.Raycast(ray, out hit, 2) && hit.collider.tag == "Damage")
+            {
+                CrowbarMode();
+            }
+            //Смотрим, было ли столкновение луча с крышкой сейфа (помечена тегом "Cap")
+            else if (Physics.Raycast(ray, out hit, 2) && hit.collider.tag == "Cap")
+            {
+                SeifLockMode();
+            }
+            //Смотрим, было ли столкновение луча с дверью
+            else if (Physics.Raycast(ray, out hit, 2) && hit.collider.tag == "Finish")
+            {
+                DoorLockMode();
+            }
+            //Смотрим, было ли столкновение луча с ноутбуком
+            else if (Physics.Raycast(ray, out hit, 14) && hit.collider.tag == "Laptop")
+            {
+                LaptopMode();
+            }
+        }
+
+        //Переключаемся в режим сбора предметов нажатием на Q (если, конечно, мы не работаем с вводом текста на ноутбуке)
+        if (Input.GetKeyDown(KeyCode.Q) && !isLaptopModeActive)
+        {            
+            ClickMode();
         }
     }
 }

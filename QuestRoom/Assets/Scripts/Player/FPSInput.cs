@@ -12,11 +12,8 @@ public class FPSInput : MonoBehaviour
     private CharacterController _charController;
     //Вводим выключатель (умножаем на него скорость всех перемещений)
     public int movingAbility = 1;
-    //Вводим пременную, которая переключает режимы игры
-    Modes mode;
     void Start()
     {
-        mode = GameObject.FindGameObjectWithTag("GameController").GetComponent<Modes>();
         //Определяем переменную, через которую можно получить доступ к Character Controller
         _charController = GetComponent<CharacterController>();
         //mode = GetComponent<Modes>();
@@ -38,15 +35,5 @@ public class FPSInput : MonoBehaviour
         movement = transform.TransformDirection(movement);
         //Заставим этот вектор перемещать компонент CharacterController
         _charController.Move(movement * movingAbility);
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            //Переключаемся в режим сбора предметов
-            mode.ClickMode();
-        }
-
-        
-    }
-
-    
+    }    
 }

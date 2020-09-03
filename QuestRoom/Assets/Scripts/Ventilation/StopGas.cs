@@ -29,10 +29,14 @@ public class StopGas : MonoBehaviour
                 Destroy(deathTimer);
                 break;
             }
-            Image timerPoint = gasPanel.transform.GetChild(i).GetComponent<Image>();
-            timerPoint.color = new Color(255, 0, 0);
-            yield return new WaitForSeconds(3f);
+            else
+            {
+                Image timerPoint = gasPanel.transform.GetChild(i).GetComponent<Image>();
+                timerPoint.color = new Color(255, 0, 0);
+                yield return new WaitForSeconds(3f);
+            }
         }
+        if (!shoulWeStopIt)
         Application.LoadLevel(Application.loadedLevel);
     }
 

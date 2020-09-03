@@ -243,7 +243,7 @@ public class BreakableWindow : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         //Окно можно разбить только предметами с тегом "Damage" (конкретно в нашем случае - монтировкой)
-        if (other.gameObject.tag == "Damage")
+        if (other.gameObject.tag == "Damage" && mode.isGasActive)
         {
             breakWindow();
             StartCoroutine(ClearWindow());

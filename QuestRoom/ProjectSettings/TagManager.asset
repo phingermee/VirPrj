@@ -12,6 +12,7 @@ TagManager:
   - Stars
   - Cap
   - PanelPoint
+  - Laptop
   layers:
   - Default
   - TransparentFX
