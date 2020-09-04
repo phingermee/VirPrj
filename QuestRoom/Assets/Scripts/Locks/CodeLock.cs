@@ -66,10 +66,9 @@ public class CodeLock : MonoBehaviour
     IEnumerator OpenDoor()
     {
         GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
-        //Эффектно открываем крышку сейфа и удвигаем кодовый замок
+        //Эффектно открываем дверь
         for (int i = 0; i < 90; i++)
         {
-            transform.Translate(new Vector3(0.01f,0,0));
             door.transform.GetChild(0).transform.Rotate(new Vector3(0, 0, 1));
             yield return new WaitForFixedUpdate();
         }
@@ -79,6 +78,7 @@ public class CodeLock : MonoBehaviour
 
     private void Update()
     {
+        //При нажатии на Q выходим из режима сбора предметов и отключаем замок
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Exit();

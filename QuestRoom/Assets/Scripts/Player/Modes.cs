@@ -80,10 +80,14 @@ public class Modes : MonoBehaviour
         AudioSource audioSrc = GetComponent<AudioSource>();
         float musicVolume = 0.5f;
         audioSrc.volume = musicVolume;
-        GasMode();
+        //Если активен режим газа, то после разбития окна газ выветривается
+        if (isGasActive)
+        {
+            GasMode();
+        }
     }
 
-    //Режим работы с кодовы замком
+    //Режим работы с кодовым замком на ящике (сейфе)
     public void SeifLockMode()
     {
         if (!_isBoxLockActive && !isSeifOpen)
@@ -93,6 +97,7 @@ public class Modes : MonoBehaviour
         }
     }
 
+    //Режим работы с кодовым замком на двери
     public void DoorLockMode()
     {
         if (!iscodeLockActive && !isDoorOpen)
@@ -140,23 +145,30 @@ public class Modes : MonoBehaviour
         }
     }
 
+    //Режим (де)активации телевизора
     public void TVMode()
     {
         if (!isTVActive)
         {
+            //Активируем видеоплеер
             TV.transform.GetChild(1).gameObject.SetActive(true);
+            //Вдавливаем кнопку
+            TV.transform.GetChild(2).Translate(0, 0.02f, 0);
             isTVActive = true;
         }
         else
         {
+            //Деактивируем видеоплеер
             TV.transform.GetChild(1).gameObject.SetActive(false);
+            //Отпускаем кнопку
+            TV.transform.GetChild(2).Translate(0, -0.02f, 0);
             isTVActive = false;
         }
     }
 
     void Update()
     {
-        //Если игрок кликнул на сюжетный объект в режиме сбора предметов, включается соответствубщий режим
+        //Если игрок кликнул мышкой в режиме сбора предметов, запускаем проверку на столкновение с сюжетным предметом
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = _camera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -172,7 +184,7 @@ public class Modes : MonoBehaviour
                 SeifLockMode();
             }
             //Смотрим, было ли столкновение луча с дверью
-            else if (Physics.Raycast(ray, out hit, 2) && hit.collider.tag == "Finish")
+            else if (Physics.Raycast(ray, out hit, 5) && hit.collider.tag == "Finish")
             {
                 DoorLockMode();
             }

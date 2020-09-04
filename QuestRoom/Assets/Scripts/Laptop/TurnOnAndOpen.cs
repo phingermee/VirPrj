@@ -31,7 +31,7 @@ public class TurnOnAndOpen : MonoBehaviour
         _doubleClick = false;
     }
 
-    /*Эта функция включает и выключает ноутбук (не путать с активацией/деактивацией Laptot Mode!!)
+    /*Эта функция включает и выключает ноутбук (не путать с активацией/деактивацией Laptop Mode!!)
     в зависимости от значения переменной isLaptotOn ("включён ли ноутбук?" - true/false)*/
     void TurnOnOff()
     {
