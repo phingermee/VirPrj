@@ -246,8 +246,15 @@ public class BreakableWindow : MonoBehaviour {
         if (other.gameObject.tag == "Damage" && mode.isGasActive)
         {
             breakWindow();
+            Destroy(other.gameObject);
+            //Убираем осколки стекла
             StartCoroutine(ClearWindow());
+            //Делаем звуки улицы громче
             mode.LoudStreetMode();
+            //Включаем на ТВ подсказку с кодом двери
+            mode.TV.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
+            //На всякий случай выключаем видео на телевизоре (а вдруг включено)
+            mode.TV.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
 }
