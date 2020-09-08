@@ -21,6 +21,7 @@ public class Modes : MonoBehaviour
     public GameObject ventilationGrid;
     public GameObject menuUI;
     public GameObject TV;
+    public GameObject cat;
     public Vector3 oldPosition;
 
     //Режим сбора предметов (игрок "заморожен", курсор активен)
@@ -166,6 +167,13 @@ public class Modes : MonoBehaviour
         }
     }
 
+    public void CatTarget()
+    {
+        CatBehavior cB = cat.GetComponent<CatBehavior>();
+        cB.isMovingPossible = false;
+        Debug.Log("Cat Mode");
+    }
+
     void Update()
     {
         //Если игрок кликнул мышкой в режиме сбора предметов, запускаем проверку на столкновение с сюжетным предметом
@@ -181,6 +189,7 @@ public class Modes : MonoBehaviour
             //Смотрим, было ли столкновение луча с крышкой сейфа (помечена тегом "Cap")
             else if (Physics.Raycast(ray, out hit, 2) && hit.collider.tag == "Cap")
             {
+                cat.GetComponent<CatBehavior>().CatBack();
                 SeifLockMode();
             }
             //Смотрим, было ли столкновение луча с дверью
@@ -192,6 +201,7 @@ public class Modes : MonoBehaviour
             else if (Physics.Raycast(ray, out hit, 14) && hit.collider.tag == "Laptop")
             {
                 LaptopMode();
+                CatTarget();
             }
             else if (Physics.Raycast(ray, out hit, 14) && hit.collider.name == "TVButton")
             {

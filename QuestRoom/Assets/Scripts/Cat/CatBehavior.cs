@@ -52,12 +52,50 @@ public class CatBehavior : MonoBehaviour
         OnMove(target);
         
     }
+
+    IEnumerator JumpAndShow()
+    {
+        float y = 0.06f;
+
+        if (!isMovingPossible)
+        {
+            anim.SetInteger("Start", SetAnim(Animations.Jump));
+            yield return new WaitForSeconds(1.5f);
+            anim.SetInteger("Start", SetAnim(Animations.Eat));
+            for (int i = 0; i < 20; i++)
+            {
+                transform.GetChild(1).Translate(0, y, 0.025f);
+                y -= 0.004f;
+                yield return new WaitForFixedUpdate();
+            }
+            GetComponent<NavMeshAgent>().isStopped = true;
+        }
+        else if (isMovingPossible)
+        {
+            anim.SetInteger("Start", SetAnim(Animations.Jump));
+            yield return new WaitForSeconds(1.5f);
+            for (int i = 0; i < 20; i++)
+            {
+                transform.GetChild(1).Translate(0, -y, -0.025f);
+                y -= 0.004f;
+                yield return new WaitForFixedUpdate();
+            }
+            anim.SetInteger("Start", SetAnim(Animations.Eat));
+        }
+    }
+
     //Если котик достигает цели, он выбирает следующую цель из списка
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == target.tag)
-        {
-            StartCoroutine(ChooseDirection());
+        {            
+            if (!isMovingPossible && other.gameObject.tag == "AmmoBox")
+            {
+                Debug.Log("Start JumpAndShow");
+                StartCoroutine(JumpAndShow());
+            }
+            else
+                StartCoroutine(ChooseDirection());
         }
     }
 
@@ -70,13 +108,26 @@ public class CatBehavior : MonoBehaviour
         anim.SetInteger("Start", SetAnim(Animations.Stay));
         //Даём котику время "подумать"
         yield return new WaitForSeconds(1.8f);
-        //Разрешаем движение
-        GetComponent<NavMeshAgent>().isStopped = false;
-        //Выбираем следующую цель в списке
-        objCat++;
-        target = targets[objCat.Index];
-        //Запускаем котика
-        OnMove(target);
+
+        if (isMovingPossible)
+        {
+            //Разрешаем движение
+            GetComponent<NavMeshAgent>().isStopped = false;
+            //Выбираем следующую цель в списке
+            objCat++;
+            target = targets[objCat.Index];
+            //Запускаем котика
+            OnMove(target);
+        }
+        else
+        {            
+            //Разрешаем движение
+            GetComponent<NavMeshAgent>().isStopped = false;
+            //Выбираем целью сейф
+            target = targets[0];
+            //Запускаем котика
+            OnMove(target);
+        }
     }
 
     //Эта функция помогает выбирать подходящую анимацию котика (чтобы не использовать обезличенные цифры)
@@ -97,10 +148,14 @@ public class CatBehavior : MonoBehaviour
     //Движение котика
     private void OnMove(Transform t)
     {
-        if (isMovingPossible)
-        {
             anim.SetInteger("Start", SetAnim(Animations.Go));
             GetComponent<NavMeshAgent>().destination = t.position;
-        }
+    }
+
+    public void CatBack()
+    {
+        Debug.Log($"CatBack");
+        isMovingPossible = true;
+        StartCoroutine(JumpAndShow());
     }
 }
