@@ -36,4 +36,11 @@ public class FPSInput : MonoBehaviour
         //Заставим этот вектор перемещать компонент CharacterController
         _charController.Move(movement * movingAbility);
     }    
+
+    public void SetPosition(Vector3 newPos)
+    {
+        _charController.enabled = false;
+        this.gameObject.transform.position = newPos;
+        _charController.enabled = true;
+    }
 }

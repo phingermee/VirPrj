@@ -5398,7 +5398,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 145738613}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1306590349}
+        m_MethodName: Load
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &145738613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10572,6 +10583,7 @@ MonoBehaviour:
   speed: 6
   gravity: -9.8
   movingAbility: 1
+  movement: {x: 0, y: 0, z: 0}
 --- !u!143 &323620129
 CharacterController:
   m_ObjectHideFlags: 0
@@ -13147,6 +13159,7 @@ GameObject:
   - component: {fileID: 1306590346}
   - component: {fileID: 1306590348}
   - component: {fileID: 1306590347}
+  - component: {fileID: 1306590349}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -13320,6 +13333,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuUI: {fileID: 812872340}
+--- !u!114 &1306590349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306590343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7d0d78a962bab438ae8fafb2c8ef45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPos: {fileID: 323620128}
 --- !u!4 &1347161560 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 475434, guid: 7d5fac0efe938994aba24a88ba9c3057,
@@ -14139,7 +14165,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1902684463}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1306590349}
+        m_MethodName: Save
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1902684463
 MonoBehaviour:
   m_ObjectHideFlags: 0
