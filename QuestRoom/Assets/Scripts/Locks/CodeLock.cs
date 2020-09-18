@@ -4,18 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+// Скрипт описывает работу с кодовым замком для двери
 public class CodeLock : MonoBehaviour
 {
-    public AudioSource audio;
-    public AudioClip pushBtn;
-    public AudioClip error;
-    public AudioClip success;
+    [SerializeField] private AudioSource audio;
+    [SerializeField] private AudioClip pushBtn;
+    [SerializeField] private AudioClip error;
+    [SerializeField] private AudioClip success;
+    [SerializeField] private AudioClip openDoor;
     //Ссылка на крышку люка
-    GameObject door;
+    private GameObject door;
     //Ссылка на жкран кодового замка
-    Transform inputPanel;
+    private Transform inputPanel;
     //Ссылка на скрипт с режимами игры
-    Modes mode;
+    private Modes mode;
     //Загоняем код в список по циферькам
     private List<int> code = new List<int>{1,2,3};
     //Счётчик, который определяет, какой по счёту символ кода вводится
@@ -67,9 +70,10 @@ public class CodeLock : MonoBehaviour
     {
         GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
         //Эффектно открываем дверь
+        audio.PlayOneShot(openDoor);
         for (int i = 0; i < 90; i++)
         {
-            door.transform.GetChild(0).transform.Rotate(new Vector3(0, 0, 1));
+            door.transform.Rotate(new Vector3(0, 0, 1));
             yield return new WaitForFixedUpdate();
         }
         mode.isDoorOpen = true;

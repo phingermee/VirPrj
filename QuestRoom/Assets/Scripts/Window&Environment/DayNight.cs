@@ -1,27 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+// Скрипт описывает движение и яркость "Солнца" и других источников света на сцене, а также активирует/деактивирует генерацию звёзд
 public class DayNight : MonoBehaviour
 {
-    //Начальная длительность дня (влияет на скорость движения солнца)
-    float daySpeed = 10f;
     //Объект, вокруг которого крутится солнце
-    public GameObject centerPoint;
+    [SerializeField] private GameObject centerPoint;
     //Само солнце (в нашем случае - источник света Point)
-    public GameObject sun;
+    [SerializeField] private GameObject sun;
     //Звёзды в виде партиклов
-    public GameObject stars;
+    [SerializeField] private GameObject stars;
     //Лампа, которая включается с наступлением ночи
-    public GameObject bulb;
-    //Переключатель "день-ночь", который позволяет избежать постоянного запуска/остановки генерации звёзд
-    bool isDayNow;
+    [SerializeField] private GameObject bulb;    
     //Дополнительные источники света, которые делают освещение комнаты более натуральным
-    public Light lightOne;
-    public Light lightTwo;
+    [SerializeField] private Light lightOne;
+    [SerializeField] private Light lightTwo;
+
+    //Начальная длительность дня (влияет на скорость движения солнца)
+    private float daySpeed = 10f;
+    //Переключатель "день-ночь", который позволяет избежать постоянного запуска/остановки генерации звёзд
+    private bool isDayNow;
 
     private void Start()
     {
+        //Запускаем генерацию звёзд
         stars.GetComponent<ParticleSystem>().Play();
     }
 
@@ -43,6 +44,7 @@ public class DayNight : MonoBehaviour
             //Выключаем лампочку
             bulb.GetComponent<Light>().range = 0;
         }
+        //Если солнце опускается ниже 5 по у, то запускаем генерацию звёзд
         else if (sun.transform.position.y < 5 && isDayNow)
         {
             daySpeed = 5;

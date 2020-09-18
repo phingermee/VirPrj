@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [AddComponentMenu("Breakable Windows/Breakable Window")]
 [RequireComponent(typeof(AudioSource))]
 public class BreakableWindow : MonoBehaviour {
-    Modes mode;
 
     [Tooltip("Layer should be TransparentFX or your own layer for breakable windows.")]
     public LayerMask layer;
@@ -49,7 +47,6 @@ public class BreakableWindow : MonoBehaviour {
 
     void Start()
     {
-        mode = GameObject.FindGameObjectWithTag("GameController").GetComponent<Modes>();
         if (preCalculate == true && allreadyCalculated == false)
         {
             bakeVertices();
@@ -232,29 +229,5 @@ public class BreakableWindow : MonoBehaviour {
         }
 
         return splinters.ToArray();
-    }
-    IEnumerator ClearWindow()
-    {
-        yield return new WaitForSeconds(2f);
-        Destroy(this.gameObject);
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //Окно можно разбить только предметами с тегом "Damage" (конкретно в нашем случае - монтировкой)
-        if (other.gameObject.tag == "Damage" && mode.isGasActive)
-        {
-            breakWindow();
-            Destroy(other.gameObject);
-            //Убираем осколки стекла
-            StartCoroutine(ClearWindow());
-            //Делаем звуки улицы громче
-            mode.LoudStreetMode();
-            //Включаем на ТВ подсказку с кодом двери
-            mode.TV.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
-            //На всякий случай выключаем видео на телевизоре (а вдруг включено)
-            mode.TV.transform.GetChild(1).gameObject.SetActive(false);
-        }
     }
 }

@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Скрипт описывает работу с механическим замком от сейфа с монтировкой
 class Box
 {
-    //Создаём массив цветов, которые есть на барабанах замка
-    public List<Color> colorsList = new List<Color>() { new Color(255, 0, 0), new Color(255, 255, 0), new Color(0, 255, 0), new Color(0, 0, 255) };
-    int _cellColorIndex;
-
     //Это свойство ограничивает индекс объекта (замочный барабан) количеством возможных цветов - включительно от 0 до 3
     public int CellColorIndex
     {
@@ -18,19 +15,19 @@ class Box
         }
         set
         {
-            if (value > colorsList.Count-1)
+            if (value > colorsList.Count - 1)
                 _cellColorIndex = 0;
             else if (value < 0)
-                _cellColorIndex = colorsList.Count-1;
+                _cellColorIndex = colorsList.Count - 1;
             else _cellColorIndex = value;
         }
     }
-
     //Этот конструктор принимает номер прокрученного барабана
-    public Box(int colind)
-    {
-        CellColorIndex = colind;        
-    }
+    public Box(int colind) => CellColorIndex = colind;
+    //Создаём массив цветов, которые есть на барабанах замка
+    public List<Color> colorsList = new List<Color>() { new Color(255, 0, 0), new Color(255, 255, 0), new Color(0, 255, 0), new Color(0, 0, 255) };
+
+    private int _cellColorIndex;
 }
 
 public class BoxLock : MonoBehaviour
@@ -54,7 +51,7 @@ public class BoxLock : MonoBehaviour
         }
     }
 
-    //Функция закрытия замка (вызывается после открытия или выхода из соотв. режима)
+    //Функция закрытия/уничтожения замка (вызывается после открытия или выхода из соотв. режима)
     public void Exit()
     {
         mode._isBoxLockActive = false;
@@ -79,10 +76,10 @@ public class BoxLock : MonoBehaviour
     {
         //Создаём объект класса Box (чтобы получить доступ к цветам из списка colorsList, который объявлен в классе Box) и...
         Box cell = lockDrums[partNum];
-        ////получаем доступ к цвету компонента Image на прокрученном только что барабане и заливаем его цветом из списка colorsList
+        //получаем доступ к цвету компонента Image на прокрученном только что барабане и заливаем его цветом из списка colorsList
         transform.GetChild(partNum).GetChild(0).GetComponent<Image>().color = cell.colorsList[cell.CellColorIndex];
         int count = 0;
-        //Проверяем: если все барабаны повёрнуты зелёный бочком к игроку, то открываем ящик (сейф)
+        //Проверяем: если все барабаны повёрнуты зелёным бочком к игроку, то открываем ящик (сейф)
         for (int i = 0; i < 4; i++)
         {
             if (transform.GetChild(i).GetChild(0).GetComponent<Image>().color == cell.colorsList[2])
@@ -90,6 +87,8 @@ public class BoxLock : MonoBehaviour
         }
         if (count == 4)
         {
+            //Запоминаем, что второе задание выполнено
+            mode.questTasks[1] = true;
             StartCoroutine(OpenBox());
         }
     }

@@ -13,6 +13,7 @@ TagManager:
   - Cap
   - PanelPoint
   - Laptop
+  - DataController
   layers:
   - Default
   - TransparentFX
