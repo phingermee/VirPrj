@@ -9,25 +9,33 @@ public class TakeThisThing : MonoBehaviour
     private GameObject _gameController;
 
     [SerializeField] private GameObject _player = null;
-    [SerializeField] private GameObject crowbar = null;    
+    [SerializeField] private GameObject crowbar = null;
+    [SerializeField] private GameObject messagePanel = null;
+    [SerializeField] private Text messageText = null;
     //Ссылка на скрипт, описывающий взаимодействие с сюжетными предметами
     private Modes mode;
     private Camera _camera;
-    private GameObject messagePanel;
+    //Наименования сюжетных объектов, с которыми может столкнуться луч (используем, чтобы не генерировать строковый мусор при проверке соответствия имён)
+    const string crowbarName = "Crowbar";
+    const string seifName = "Cap";
+    const string doorName = "Finish";
+    const string laptopName = "Laptop";
+    const string laptopButtonName = "LaptopButton";
+    const string emailName = "EmailIcon";
+    const string TVButtonName = "TVButton";
 
     private void Start()
     {
         //Находим объект через поиск тега, поскольку игрок подгружается из префаба и... ну, в общем, возникают проблемы при попытке дать прямую ссылку
         _gameController = GameObject.FindGameObjectWithTag("GameController");
         mode = _gameController.GetComponent<Modes>();
-        _camera = GetComponent<Camera>();
-        messagePanel = transform.GetChild(1).gameObject;
         //Вырубаем информационную панель с подсказкой через 4 секунды после старта
-        StartCoroutine(HideMessagePanel(messagePanel));
+        StartCoroutine(HideMessagePanel());
+        _camera = this.gameObject.GetComponent<Camera>();
     }
 
-    //Показываем и скрываем панель с подсказкой
-    IEnumerator HideMessagePanel(GameObject messagePanel)
+    //Показываем и скрываем панель с подсказкой (в игре этот корутин используется несколько раз для разных подсказок)
+    IEnumerator HideMessagePanel()
     {
         yield return new WaitForSeconds(3.8f);
         messagePanel.SetActive(false);
@@ -46,46 +54,51 @@ public class TakeThisThing : MonoBehaviour
         {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            //Смотрим, было ли столкновение луча с монтировкой (помечена тегом "Damage")
-            if (Physics.Raycast(ray, out hit, 2) && hit.collider.name == "Crowbar")
+
+           if (Physics.Raycast(ray, out hit, 2))
             {
-                hit.collider.gameObject.SetActive(false);
-                crowbar.SetActive(true);
-            }
-            //Смотрим, было ли столкновение луча с крышкой сейфа (помечена тегом "Cap")
-            else if (Physics.Raycast(ray, out hit, 2) && hit.collider.tag == "Cap")
-            {
-                mode.cat.GetComponent<CatBehavior>().CatBack();
-                mode.SeifLockMode();
-            }
-            //Смотрим, было ли столкновение луча с дверью
-            else if (Physics.Raycast(ray, out hit, 5) && hit.collider.tag == "Finish")
-            {
-                mode.DoorLockMode();
-            }
-            //Смотрим, было ли столкновение луча с ноутбуком (если было, то берём ноутбук в руки - включаем уже при отдельном клике на кнопку)
-            else if (Physics.Raycast(ray, out hit, 14) && hit.collider.tag == "Laptop" && !mode.isLaptopModeActive)
-            {
-                mode.LaptopMode();
-                StartCoroutine(HideMessagePanel(transform.GetChild(1).gameObject));
-            }
-            //Включаем ноутбук при нажатии на соответствующую кнопку
-            else if (Physics.Raycast(ray, out hit, 14) && hit.collider.name == "LaptopButton")
-            {
-                hit.collider.gameObject.transform.Translate(0, 0.02f, 0);
-                mode.LaptopOn();
-                messagePanel.SetActive(true);
-                messagePanel.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = "Чтобы положить ноутбук на стол, нажмите TAB";
-            }
-            //Если луч столкнулся с иконкой текстового документа, то запускаем проверку на двойной клик: (см. дальше)
-            if (Physics.Raycast(ray, out hit, 14) && hit.collider.name == "EmailIcon")
-            {
-                mode.TextFileClick();
-            }
-            //Включаем ТВ при нажатии на соответствующую кнопку
-            else if (Physics.Raycast(ray, out hit, 14) && hit.collider.name == "TVButton")
-            {
-                mode.TVMode();
+                //Смотрим, было ли столкновение луча с монтировкой (помечена тегом "Damage")
+                if (hit.collider.name == crowbarName)
+                {
+                    hit.collider.gameObject.SetActive(false);
+                    crowbar.SetActive(true);
+                }
+                //Смотрим, было ли столкновение луча с крышкой сейфа (помечена тегом "Cap") и выполнено л первое задание
+                else if (hit.collider.tag == seifName && mode.questTasks[0])
+                {
+                    //Очень сложное обращение - только ради того, чтобы не искать кота через Find
+                    mode.cat.GetComponent<CatBehavior>().CatBack();
+                    mode.SeifLockMode();
+                }
+                //Смотрим, было ли столкновение луча с дверью
+                else if (hit.collider.name == doorName)
+                {
+                    mode.DoorLockMode();
+                }
+                //Смотрим, было ли столкновение луча с ноутбуком (если было, то берём ноутбук в руки - включаем уже при отдельном клике на кнопку)
+                else if (hit.collider.name == laptopName && !mode.isLaptopModeActive)
+                {
+                    mode.LaptopMode();
+                }
+                //Включаем ноутбук при нажатии на соответствующую кнопку
+                else if (hit.collider.name == laptopButtonName)
+                {
+                    hit.collider.gameObject.transform.Translate(0, 0.02f, 0);
+                    mode.LaptopOn();
+                    messagePanel.SetActive(true);
+                    messageText.text = "Чтобы положить ноутбук на стол, нажмите TAB";
+                    StartCoroutine(HideMessagePanel());
+                }
+                //Если луч столкнулся с иконкой текстового документа, то запускаем проверку на двойной клик: (см. дальше)
+                else if (hit.collider.name == emailName)
+                {
+                    mode.TextFileClick();
+                }
+                //Включаем ТВ при нажатии на соответствующую кнопку
+                else if (hit.collider.name == TVButtonName)
+                {
+                    mode.TVMode();
+                }
             }
         }
     }

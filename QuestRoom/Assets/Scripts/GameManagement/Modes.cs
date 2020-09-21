@@ -22,17 +22,19 @@ public class Modes : MonoBehaviour
 
     public List<bool> questTasks = new List<bool>(3) { false, false, false };
     
-    [SerializeField] public GameObject TV;
-    [SerializeField] public GameObject cat;
-    [SerializeField] private OnOffTV TVScript;
-    [SerializeField] private GameObject laptop;
-    [SerializeField] private GameObject ventilationGrid;
+    [SerializeField] public GameObject TV = null;
+    [SerializeField] public GameObject cat = null;
+    [SerializeField] public GameObject seifCap = null;
+    [SerializeField] public GameObject door = null;
+    [SerializeField] private OnOffTV TVScript = null;
+    [SerializeField] private GameObject laptop = null;
     [SerializeField] private GameObject seifLock = null;
-    [SerializeField] private GameObject codeLock = null;
+    [SerializeField] private GameObject codeLock = null;    
     [SerializeField] private GameObject plotThings = null;
     [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private TurnOnAndOpenLaptop laptopControl;
-    
+    [SerializeField] private StopGas gasScript = null;
+
     [SerializeField] private AudioSource audio;
     [SerializeField] private AudioClip doorSound;
 
@@ -94,7 +96,6 @@ public class Modes : MonoBehaviour
         {
             audio.volume = 1;
             audio.PlayOneShot(doorSound);
-            
         }
         //Если все задания выполнены, но дверь до сих пор не открыта, подгружаем головоломку из префаба и "вешаем" её на игрока
         else if (!iscodeLockActive && !isDoorOpen)
@@ -107,7 +108,6 @@ public class Modes : MonoBehaviour
     //Режим отравляющего газа
     public void GasMode()
     {
-        StopGas gasScript = ventilationGrid.GetComponent<StopGas>();
         gasScript.shouldWeStopIt = isGasActive;
         if (!isGasActive)
         {
@@ -124,8 +124,8 @@ public class Modes : MonoBehaviour
             oldPosition = laptop.transform.position;
             oldRotation = laptop.transform.rotation;
             laptop.transform.SetParent(_camera.transform);
-            laptop.transform.position = lockPoint.transform.position;
-            laptop.transform.rotation = lockPoint.transform.rotation;
+            //"Вешаем" ноутбук на координаты пустого объекта, закреплённого перед камерой
+            laptop.transform.SetPositionAndRotation(lockPoint.transform.position, lockPoint.transform.rotation);
             isLaptopModeActive = true;
             //Активируем кота: он запрыгивает на ящик, чтобы навести игрока на спасительную монтировку
             CatBehavior cB = cat.GetComponent<CatBehavior>();
@@ -134,8 +134,7 @@ public class Modes : MonoBehaviour
         else
         {
             laptop.transform.SetParent(plotThings.transform);
-            laptop.transform.position = oldPosition;
-            laptop.transform.rotation = oldRotation;
+            laptop.transform.SetPositionAndRotation(oldPosition, oldRotation);
             isLaptopModeActive = false;
         }
     }

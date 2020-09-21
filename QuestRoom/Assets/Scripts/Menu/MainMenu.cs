@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private DataTransfer dataControl = null;
     public Button btnContinue;
-    public SettingsSave ia;
+    [SerializeField]  public SettingsSave ia;
 
     public void StartGame()
     {

@@ -38,7 +38,6 @@ public class DayNight : MonoBehaviour
         //Если солнце поднимается выше 4 по у, то останавливаем генерацию звёзд (они потом сами гаснут, что есть весьма реалистично)
         if (sun.transform.position.y >= 5 && !isDayNow)
         {
-            daySpeed = 5;
             isDayNow = true;
             stars.GetComponent<ParticleSystem>().Stop();
             //Выключаем лампочку
@@ -47,7 +46,6 @@ public class DayNight : MonoBehaviour
         //Если солнце опускается ниже 5 по у, то запускаем генерацию звёзд
         else if (sun.transform.position.y < 5 && isDayNow)
         {
-            daySpeed = 5;
             isDayNow = false;
             stars.GetComponent<ParticleSystem>().Play();
             //Включаем лампочку

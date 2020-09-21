@@ -12968,10 +12968,20 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Cap
       objectReference: {fileID: 0}
+    - target: {fileID: 6080596665305963236, guid: 45fb3b613218da844b047d1f9349e0d6,
+        type: 3}
+      propertyPath: m_Name
+      value: SeifCap
+      objectReference: {fileID: 0}
     - target: {fileID: 8152493775193411352, guid: 45fb3b613218da844b047d1f9349e0d6,
         type: 3}
       propertyPath: m_TagString
       value: AmmoBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 8152493775193411352, guid: 45fb3b613218da844b047d1f9349e0d6,
+        type: 3}
+      propertyPath: m_Name
+      value: SeifBody
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45fb3b613218da844b047d1f9349e0d6, type: 3}
@@ -14205,6 +14215,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Finish
       objectReference: {fileID: 0}
+    - target: {fileID: 895057390420591182, guid: 214b673e61a328f4b97a4c1f1bba63d3,
+        type: 3}
+      propertyPath: m_Name
+      value: Finish
+      objectReference: {fileID: 0}
     - target: {fileID: 6424270456704572960, guid: 214b673e61a328f4b97a4c1f1bba63d3,
         type: 3}
       propertyPath: m_Name
@@ -15114,7 +15129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMovingPossible: 0
-  objCat: {fileID: 0}
   seif: {fileID: 784750741}
   TV: {fileID: 1887183469}
   door: {fileID: 1112456993}
@@ -16340,6 +16354,99 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1528865200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1528865201}
+  - component: {fileID: 1528865203}
+  - component: {fileID: 1528865202}
+  - component: {fileID: 1528865204}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1528865201
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528865200}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0637}
+  m_LocalScale: {x: 0.0015269107, y: 0.001582685, z: 0.090186}
+  m_Children: []
+  m_Father: {fileID: 1581218506}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.1296, y: 0.0526}
+  m_SizeDelta: {x: 119.49158, y: 19.764816}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1528865202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528865200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 16
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 00:00
+--- !u!222 &1528865203
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528865200}
+  m_CullTransparentMesh: 0
+--- !u!114 &1528865204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528865200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158275c1fef951d468c7d08ca8a9ab6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sun: {fileID: 175270839}
+  centerPoint: {fileID: 1058630788}
 --- !u!1 &1539115746
 GameObject:
   m_ObjectHideFlags: 0
@@ -16953,6 +17060,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 485208001}
+  - {fileID: 1528865201}
   m_Father: {fileID: 336797036}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17647,7 +17755,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.8030787, z: 1.9387606}
+  m_Size: {x: 0.1, y: 0.8030787, z: 1.9387606}
   m_Center: {x: 0.01797909, y: -0.39169118, z: 0.9756202}
 --- !u!1 &1765221697
 GameObject:
@@ -18594,9 +18702,10 @@ MonoBehaviour:
   questTasks: 000000
   TV: {fileID: 1050274006}
   cat: {fileID: 1263750997}
+  seifCap: {fileID: 1480531536}
+  door: {fileID: 1743811404}
   TVScript: {fileID: 1050274007}
   laptop: {fileID: 5811096728638300244}
-  ventilationGrid: {fileID: 1257912561}
   seifLock: {fileID: 2564043050541338676, guid: 4775bdac99a273a40a2329da38cca1da,
     type: 3}
   codeLock: {fileID: 3769332108499916105, guid: 87fc45f0f45b2fe48bb2df49fe1c1c37,
@@ -18604,6 +18713,7 @@ MonoBehaviour:
   plotThings: {fileID: 1127429000}
   pauseMenuPanel: {fileID: 812872340}
   laptopControl: {fileID: 5811096728638300246}
+  gasScript: {fileID: 1257912566}
   audio: {fileID: 2041924616}
   doorSound: {fileID: 8300000, guid: 18743fd99e6bf20418750e86f69ec463, type: 3}
 --- !u!4 &2041924619
@@ -18662,8 +18772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a5ade7fb4812b40b021824d402932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPos: {fileID: 7461627565499244648, guid: 896596642becf8943b0ea4e21f3a74d4,
-    type: 3}
 --- !u!4 &2047573023 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: bdd8b59fd28ade14d951aeeb4c9644d0,
@@ -18824,16 +18932,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 595cf544943e29a4d9a7b813e4218a3c, type: 3}
       propertyPath: hour
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 595cf544943e29a4d9a7b813e4218a3c, type: 3}
       propertyPath: clockSpeed
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 595cf544943e29a4d9a7b813e4218a3c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 595cf544943e29a4d9a7b813e4218a3c, type: 3}
+      propertyPath: sun
+      value: 
+      objectReference: {fileID: 175270839}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 595cf544943e29a4d9a7b813e4218a3c, type: 3}
 --- !u!4 &2069151602 stripped

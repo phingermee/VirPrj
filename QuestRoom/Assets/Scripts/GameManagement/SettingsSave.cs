@@ -20,7 +20,7 @@ public class SettingsSave : MonoBehaviour
         settings.volume = setVolume.musicValue;
         settings.lng = Locale.CurrentLanguage;
         FileStream file = File.Create(Application.persistentDataPath + "/settings.qr");
-        bf.Serialize(file, settings);
+        //bf.Serialize(file, settings);
         file.Close();
     }
 

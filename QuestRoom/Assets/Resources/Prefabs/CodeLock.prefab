@@ -2687,6 +2687,11 @@ MonoBehaviour:
   error: {fileID: 8300000, guid: bed95fdaf1e78d9439db97628ea331c7, type: 3}
   success: {fileID: 8300000, guid: 2feda445dfb0ac547aa32e760efac9b8, type: 3}
   openDoor: {fileID: 8300000, guid: 78411f085a3499f47b172587d16b4427, type: 3}
+  imageOfCell:
+  - {fileID: 3769332107776510778}
+  - {fileID: 3769332106788170230}
+  - {fileID: 3769332107003868892}
+  inputPanel: {fileID: 3769332107091058825}
 --- !u!82 &3769332108499916100
 AudioSource:
   m_ObjectHideFlags: 0

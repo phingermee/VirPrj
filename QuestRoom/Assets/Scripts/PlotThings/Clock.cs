@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class Clock : MonoBehaviour {
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -22,9 +22,12 @@ public class Clock : MonoBehaviour {
     //-- internal vars
     int seconds;
     float msecs;
-    GameObject pointerSeconds;
-    GameObject pointerMinutes;
-    GameObject pointerHours;
+    private GameObject pointerSeconds;
+    private GameObject pointerMinutes;
+    private GameObject pointerHours;
+    [SerializeField] private GameObject sun;
+    private Vector3 oldPos;
+    private float deltaPos;
 //-----------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -36,14 +39,23 @@ void Start()
 
     msecs = 0.0f;
     seconds = 0;
+
+    StartCoroutine(CountSecondLength());
 }
+
+    private IEnumerator CountSecondLength()
+    {
+        oldPos = sun.transform.position;
+        yield return new WaitForSeconds(1f);
+        deltaPos = Vector3.Distance(sun.transform.position, oldPos);
+    }
 //-----------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------------------------
 void Update() 
 {
     //-- calculate time
-    msecs += Time.deltaTime * clockSpeed;
+    msecs += Time.deltaTime * clockSpeed / deltaPos;
     if(msecs >= 1.0f)
     {
         msecs -= 1.0f;

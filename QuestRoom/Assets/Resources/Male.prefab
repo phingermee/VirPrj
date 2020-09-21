@@ -2554,9 +2554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a1ca550fc0abb4eaab1a7c0c649a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameController: {fileID: 0}
   _player: {fileID: 7916320420826848575}
   crowbar: {fileID: 9195591121945134138}
+  messagePanel: {fileID: 1431558580132497641}
+  messageText: {fileID: 5699225160510670454}
 --- !u!1001 &4245043616572156868
 PrefabInstance:
   m_ObjectHideFlags: 0

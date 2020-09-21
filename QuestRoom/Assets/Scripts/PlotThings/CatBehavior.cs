@@ -20,21 +20,19 @@ public class CatBehavior : MonoBehaviour
     
     //Создаём публичную переменную, посредством которой мы сможем "отключать" котика из других скриптов
     public bool isMovingPossible;
-    public int Index { get; set; }
-    public CatBehavior(int ind)
-    {
-        Index = ind;
-    }
 
-    //Переопределяем оператор ++, чтобы номер анимационного состояния не выходил за пределы списка
-    public static CatBehavior operator ++(CatBehavior obj)
+    public int TargetIndex
     {
-        obj.Index = obj.Index < 2 ? ++obj.Index : 0;
-        return obj;
+        get
+        {
+            return targetIndex;
+        }
+        set
+        {
+            targetIndex = value < 2 ? ++targetIndex : 0;
+        }
     }
-
-    //Объекты и свойства класса, которые помогают переопределить оператор ++ для смены целей
-    [HideInInspector] public CatBehavior objCat;
+    private int targetIndex = 0;
 
     [SerializeField] private Transform seif;
     [SerializeField] private Transform TV;
@@ -55,27 +53,10 @@ public class CatBehavior : MonoBehaviour
         //Находим все цели котика и загоняем их в список
         targets = new List<Transform> { seif, door, TV };
 
-        Index = 0;
-        objCat = new CatBehavior(Index);
         //Выбираем первую цель
-        target = targets[objCat.Index];
+        target = targets[TargetIndex];
         //Выпускаем котика погулять
         OnMove(target);
-    }
-
-    //Эта функция помогает выбирать подходящую анимацию котика (чтобы не использовать обезличенные цифры)
-    private int SetAnim(Animations animationVariant)
-    {
-        switch (animationVariant)
-        {
-            case Animations.Go:
-                return 1;
-            case Animations.Jump:
-                return 2;
-            case Animations.Eat:
-                return 3;
-        }
-        return 0;
     }
 
     //В этом корутине котик запрыгивает на ящик (и спрыгивает потом обратно), чтобы указать игроку на спасительную монтировку
@@ -85,9 +66,9 @@ public class CatBehavior : MonoBehaviour
 
         if (!isMovingPossible)
         {
-            anim.SetInteger("Start", SetAnim(Animations.Jump));
+            anim.SetInteger("Start", (int)Animations.Jump);
             yield return new WaitForSeconds(1.5f);
-            anim.SetInteger("Start", SetAnim(Animations.Eat));
+            anim.SetInteger("Start", (int)Animations.Eat);
             for (int i = 0; i < 20; i++)
             {
                 transform.Translate(0, y, 0.025f);
@@ -98,10 +79,10 @@ public class CatBehavior : MonoBehaviour
         }
         else if (isMovingPossible)
         {
-            anim.SetInteger("Start", SetAnim(Animations.Jump));
+            anim.SetInteger("Start", (int)Animations.Jump);
             yield return new WaitForSeconds(1.5f);
             transform.position = new Vector3(0, 3, -3);
-            anim.SetInteger("Start", SetAnim(Animations.Eat));
+            anim.SetInteger("Start", (int)Animations.Eat);
         }
     }
 
@@ -125,17 +106,16 @@ public class CatBehavior : MonoBehaviour
         //Останавливаем котика
         GetComponent<NavMeshAgent>().isStopped = true;
         //..анимацию тоже ставим статичную
-        anim.SetInteger("Start", SetAnim(Animations.Stay));
+        anim.SetInteger("Start", (int)Animations.Stay);
         //Даём котику время "подумать"
         yield return new WaitForSeconds(1.8f);
 
         // Если котика остановили, чтобы включить сюжетное поведение, то нацеливаем его на сейф
-        objCat.Index = isMovingPossible ? ++objCat.Index : 0;
-
+        TargetIndex = isMovingPossible ? TargetIndex : 0;
         //Разрешаем движение
         GetComponent<NavMeshAgent>().isStopped = false;
         //Выбираем цель
-        target = targets[objCat.Index];
+        target = targets[TargetIndex];
         //Запускаем котика
         OnMove(target);
     }
@@ -143,7 +123,7 @@ public class CatBehavior : MonoBehaviour
     //Движение котика
     private void OnMove(Transform t)
     {
-            anim.SetInteger("Start", SetAnim(Animations.Go));
+            anim.SetInteger("Start", (int)Animations.Go);
             GetComponent<NavMeshAgent>().destination = t.position;
     }
 

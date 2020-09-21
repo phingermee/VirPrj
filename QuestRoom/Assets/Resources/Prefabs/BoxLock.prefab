@@ -1632,6 +1632,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ce6fc5844f6a548bb8a4ca3af1286b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeDrumImgComponent:
+  - {fileID: 8959500374343555120}
+  - {fileID: 5273999439218228307}
+  - {fileID: 7172624543805489723}
+  - {fileID: 6831690940808843968}
 --- !u!1 &8768347316543456396
 GameObject:
   m_ObjectHideFlags: 0
