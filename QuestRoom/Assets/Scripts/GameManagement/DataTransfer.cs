@@ -10,8 +10,5 @@ public class DataTransfer : MonoBehaviour
 {
     public bool isItCoopGame = false;
 
-    void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+    void Awake() => DontDestroyOnLoad(gameObject);
 }

@@ -8,8 +8,8 @@ namespace PhotonTutorial
     public class PlayerSpawner : MonoBehaviourPun
     {
         public static FPSInput hostInput;
-        [SerializeField] private GameObject playerPrefab = null;
         private DataTransfer dataControl = null;
+        [SerializeField] private GameObject playerPrefab = null;        
         
         //Загружаем префаб игрока из папки Resources
         void Start()

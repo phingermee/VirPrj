@@ -44,8 +44,8 @@ public class Modes : MonoBehaviour
     private Vector3 oldPosition;
     private Quaternion oldRotation;
 
-    FPSInput playerMovingScript;
-    MouseLook cameraRotationScript;
+    private FPSInput playerMovingScript;
+    private MouseLook cameraRotationScript;
     
     private void Start()
     {
@@ -119,6 +119,7 @@ public class Modes : MonoBehaviour
     //Режим работы с ноутбуком
     public void LaptopMode()
     {
+        //Если ноут ещё не активирован (стоит на столе), то берём его в руки и поворачиваем экраном к игроку
         if (!isLaptopModeActive)
         {
             oldPosition = laptop.transform.position;
@@ -131,6 +132,7 @@ public class Modes : MonoBehaviour
             CatBehavior cB = cat.GetComponent<CatBehavior>();
             cB.isMovingPossible = false;
         }
+        //Если мы работаем с ноутом, то при нажатии ТАВ возвращаем ноут на старое место
         else
         {
             laptop.transform.SetParent(plotThings.transform);
