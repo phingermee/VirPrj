@@ -5852,8 +5852,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175270839}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1166434, y: 7.8497915, z: -10.907599}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 20.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1122648818}
@@ -13986,8 +13986,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058630788}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1166434, y: 2.8497915, z: 4.5924006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1122648818}
@@ -14406,7 +14406,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1122648817}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1166434, y: -2.8497915, z: -4.5924006}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 175270841}
@@ -16381,7 +16381,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528865200}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0637}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0299}
   m_LocalScale: {x: 0.0015269107, y: 0.001582685, z: 0.090186}
   m_Children: []
   m_Father: {fileID: 1581218506}
@@ -16389,8 +16389,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.1296, y: 0.0526}
-  m_SizeDelta: {x: 119.49158, y: 19.764816}
+  m_AnchoredPosition: {x: -0.0649, y: 0.0365}
+  m_SizeDelta: {x: 70.82025, y: 19.764816}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1528865202
 MonoBehaviour:
@@ -16413,7 +16413,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 16
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -16713,7 +16713,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.75
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -16770,7 +16770,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561809071}
   m_LocalRotation: {x: -0.7310527, y: -0.5726642, z: -0.100673504, w: -0.35704705}
-  m_LocalPosition: {x: 0.84664345, y: 5.8517914, z: 6.9324007}
+  m_LocalPosition: {x: -1.5, y: 8.007, z: 4.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1122648818}
@@ -16805,7 +16805,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.85
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -16862,7 +16862,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570251153}
   m_LocalRotation: {x: 0.38755158, y: -0.361462, z: 0.16855246, w: 0.8311072}
-  m_LocalPosition: {x: 0.84664345, y: 5.8517914, z: 1.7794006}
+  m_LocalPosition: {x: 2.75, y: 7.93, z: -2.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1122648818}
@@ -18748,6 +18748,7 @@ MonoBehaviour:
   bulb: {fileID: 1303705801}
   lightOne: {fileID: 1570251154}
   lightTwo: {fileID: 1561809072}
+  daySpeed: 100
 --- !u!114 &2041924621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18946,6 +18947,18 @@ PrefabInstance:
       propertyPath: sun
       value: 
       objectReference: {fileID: 175270839}
+    - target: {fileID: 11400000, guid: 595cf544943e29a4d9a7b813e4218a3c, type: 3}
+      propertyPath: dayNightScript
+      value: 
+      objectReference: {fileID: 2041924620}
+    - target: {fileID: 11400000, guid: 595cf544943e29a4d9a7b813e4218a3c, type: 3}
+      propertyPath: laptopClock
+      value: 
+      objectReference: {fileID: 1528865200}
+    - target: {fileID: 11400000, guid: 595cf544943e29a4d9a7b813e4218a3c, type: 3}
+      propertyPath: laptopPanel
+      value: 
+      objectReference: {fileID: 1528865200}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 595cf544943e29a4d9a7b813e4218a3c, type: 3}
 --- !u!4 &2069151602 stripped

@@ -14,9 +14,10 @@ public class DayNight : MonoBehaviour
     //Дополнительные источники света, которые делают освещение комнаты более натуральным
     [SerializeField] private Light lightOne;
     [SerializeField] private Light lightTwo;
+    private float anglyByOneSec;
 
     //Начальная длительность дня (влияет на скорость движения солнца)
-    private float daySpeed = 10f;
+    public float daySpeed = 100f;
     //Переключатель "день-ночь", который позволяет избежать постоянного запуска/остановки генерации звёзд
     private bool isDayNow;
 
@@ -24,6 +25,7 @@ public class DayNight : MonoBehaviour
     {
         //Запускаем генерацию звёзд
         stars.GetComponent<ParticleSystem>().Play();
+        anglyByOneSec = 360f / (43200f);
     }
 
     void Update()
@@ -33,7 +35,7 @@ public class DayNight : MonoBehaviour
         lightOne.intensity = sun.transform.position.y / 15;
         lightTwo.intensity = sun.transform.position.y / 15;
         //Солнышко кру-у-утится, юху!
-        sun.transform.RotateAround(center, -Vector3.left, daySpeed * Time.deltaTime);
+        sun.transform.RotateAround(center, -Vector3.left, anglyByOneSec * Time.deltaTime * daySpeed);
 
         //Если солнце поднимается выше 4 по у, то останавливаем генерацию звёзд (они потом сами гаснут, что есть весьма реалистично)
         if (sun.transform.position.y >= 5 && !isDayNow)
