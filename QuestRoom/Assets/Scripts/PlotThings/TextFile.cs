@@ -4,6 +4,7 @@ using UnityEngine.UI;
 //Скрипт описывает работу с текстовым файлом на сюжетном ноутуке и проверяет соответствие введённого текста ключевому слову
 public class TextFile : MonoBehaviour
 {
+    [SerializeField] private TurnOnAndOpenLaptop turnLaptopScript;
     [SerializeField] private GameObject gameController;
     [SerializeField] private Text answerField;
     [SerializeField] private Modes mode;
@@ -11,18 +12,20 @@ public class TextFile : MonoBehaviour
     private const string whoIAm = "Bandersnatch";
     private string answer = "";
     private string savedAnswer = "";
+    private string enter = "Enter";
+    private string backspace = "Backspace";
 
     //Функция, которая вводит символ нажатой кнопки в текстовый файл
     string AnswerInput(string letter)
     {
         //Если была нажата клавиша Enter (Return), то переходим на новую строку
-        if (letter == "Enter")
+        if (letter == enter)
         {
             answer += "\r\n";
             return answerField.text.Remove(answerField.text.Length - 1) + "\r\n|";
         }
         //При нажати клавиши Backspace удаляем последнюю букву
-        else if (letter == "Backspace" && answer != "")
+        else if (letter == backspace && answer != "")
         {
             answer = answer.Remove(answer.Length - 1);
             return answerField.text.Remove(answerField.text.Length - 2) + "|";
@@ -37,17 +40,17 @@ public class TextFile : MonoBehaviour
     void Update()
     {
         //Если режим ноутбука активирован И! если ноутбук включён, то...
-        if (mode.isLaptopModeActive && GetComponent<TurnOnAndOpenLaptop>().isLaptotOn)
+        if (mode.isLaptopModeActive && turnLaptopScript.isLaptotOn)
         {
             //..при нажати клавиши Backspace удаляем последнюю букву
             if (Input.GetKeyDown(KeyCode.Backspace))
             {
-                answerField.text = AnswerInput("Backspace");
+                answerField.text = AnswerInput(backspace);
             }
             //..при нажати клавиши Enter (Return) переходим на новую строку
             else if (Input.GetKeyDown(KeyCode.Return))
             {
-                answerField.text = AnswerInput("Enter");
+                answerField.text = AnswerInput(enter);
             }
             //..при нажати клавиши F5 сохраняем введённый текст (он отобразится при новом запуске текстового файла)
             else if (Input.GetKeyDown(KeyCode.F5))

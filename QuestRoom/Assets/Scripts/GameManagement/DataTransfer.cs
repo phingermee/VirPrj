@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /*
    Скрипт принимет данные из главного меню, чтобы к ним могли обращаться скрипты из других сцен. В частности,

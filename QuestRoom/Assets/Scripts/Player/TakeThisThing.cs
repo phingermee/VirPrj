@@ -83,7 +83,7 @@ public class TakeThisThing : MonoBehaviour
                 //Включаем ноутбук при нажатии на соответствующую кнопку
                 else if (hit.collider.name == laptopButtonName)
                 {
-                    hit.collider.gameObject.transform.Translate(0, 0.02f, 0);
+                    mode.LaptopButtonAnim.Play("LaptopButtonAnim");
                     mode.LaptopOn();
                     messagePanel.SetActive(true);
                     messageText.text = "Чтобы положить ноутбук на стол, нажмите TAB";

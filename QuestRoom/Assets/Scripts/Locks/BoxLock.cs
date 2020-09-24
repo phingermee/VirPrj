@@ -1,38 +1,42 @@
-﻿using System.Collections;
+﻿//-------------------------------------
+// Скрипт описывает работу с механическим замком от сейфа с монтировкой
+//-------------------------------------
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-
-// Скрипт описывает работу с механическим замком от сейфа с монтировкой
-enum drumColors
-{
-    red,
-    yellow,
-    green,
-    blue
-}
 
 //Создаём класс Box, определяющий параметры и свойства для работы с отдельным барабаном замка (если делать всё в одном классе, возникают конфликты и путаница, мозг просто кипит)
 class Box
 {
     //Создаём список цветов, которые есть на барабанах замка
     public List<Color> colorsList = new List<Color>() {
-        //красный
-        new Color(255, 0, 0),
-        //жёлтый
-        new Color(255, 255, 0),
-        //зелёный
-        new Color(0, 255, 0),
-        //синий
-        new Color(0, 0, 255)
+        Color.red,
+        Color.yellow,
+        Color.green,
+        Color.blue
     };
 
     //Это свойство ограничивает индекс объекта (замочный барабан) количеством возможных цветов - включительно от 0 до 3
     public int IndexOfCellColor
     {
         get { return _cellColorIndex; }
-        set {  _cellColorIndex = value > colorsList.Count - 1 ? 0 : value < 0 ? colorsList.Count - 1 : value; }
+        set
+        {
+            _cellColorIndex = value > colorsList.Count - 1 ? 0 : value < 0 ? colorsList.Count - 1 : value;
+            if (value < 0)
+            {
+                _cellColorIndex = colorsList.Count - 1;
+            }
+            else if (value > colorsList.Count - 1)
+            {
+                _cellColorIndex = 0;
+            }
+            else
+            {
+                _cellColorIndex = value;
+            }
+        }
     }
     private int _cellColorIndex;
 
@@ -72,16 +76,10 @@ public class BoxLock : MonoBehaviour
     }
 
     //Эффектно открываем ящик
-    IEnumerator OpenBox()
+    private void OpenBox()
     {
-        for (int i = 0; i < 90; i++)
-        {
-            //Сдвигаем замок в сторону
-            transform.Translate(5, 0, 0);
-            //Обращаемся к крышке сейфа через ссылку, размещённую в скрипте Modes, и открываем её (крышку)
-            mode.seifCap.transform.Rotate(new Vector3(-1, 0, 0));
-            yield return new WaitForFixedUpdate();
-        }
+        //Запускаем анимацию крышки сейфа
+        mode.seifCapAnim.Play("seifCapAnim");
         Exit();
     }
 
@@ -94,13 +92,13 @@ public class BoxLock : MonoBehaviour
         activeDrumImgComponent[partNum].color = drum.colorsList[drum.IndexOfCellColor];
 
         //Считаем число барабанов, повёрнутых к игроку зелёным бочком
-        var rightCellsCount = activeDrumImgComponent.Where(x => x.color == drum.colorsList[(int)drumColors.green]).Count();
+        var rightCellsCount = activeDrumImgComponent.Where(x => x.color == Color.green).Count();
         //Если все 4 барабана повёнуты к нам зелёным бочком, то открываем ящик (сейф)
         if (rightCellsCount == 4)
         {
             //Запоминаем, что второе задание выполнено
             mode.questTasks[1] = true;
-            StartCoroutine(OpenBox());
+            OpenBox();
         }
     }
 

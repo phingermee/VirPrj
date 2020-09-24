@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,15 +32,11 @@ public class CodeLock : MonoBehaviour
         Destroy(gameObject);
     }
 
-    IEnumerator OpenDoor()
+    private void OpenDoor()
     {
-        //Эффектно открываем дверь
+        //Эффектно и с музыкой открываем дверь
+        mode.openDoorAnim.Play("openDoorAnim");
         audio.PlayOneShot(openDoor);
-        for (int i = 0; i < 90; i++)
-        {
-            mode.door.transform.Rotate(new Vector3(0, 0, 1));
-            yield return new WaitForFixedUpdate();
-        }
         mode.isDoorOpen = true;
         Exit();
     }
@@ -52,14 +47,14 @@ public class CodeLock : MonoBehaviour
         if (number == code[index])
         {
             audio.PlayOneShot(pushBtn);
-            imageOfCell[index].color = new Color(0f, 255f, 0f);
+            imageOfCell[index].color = Color.green;
             index++;
             //Если при этом оказывается, что это была последняя по счёту циферька, то сейф открывается
             if (index == 3)
             {
                 audio.PlayOneShot(success);
                 index = 0;
-                StartCoroutine(OpenDoor());
+                OpenDoor();
             }
         }
         //А вот если введённая циферька НЕ соотвествует очередному символу кода, то экран замка загорается красным
@@ -69,7 +64,7 @@ public class CodeLock : MonoBehaviour
             index = 0;
             for (int i = 0; i < inputPanel.childCount; i++)
             {
-                imageOfCell[i].color = new Color(255f, 0f, 0f);
+                imageOfCell[i].color = Color.red;
             }
         }
     }

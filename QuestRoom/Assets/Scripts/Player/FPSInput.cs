@@ -57,11 +57,11 @@ namespace PhotonTutorial.Movement
         public void SetPosition(Vector3 newPos)
         {
             _charController.enabled = false;
-            this.gameObject.transform.position = newPos;
+            gameObject.transform.position = newPos;
             _charController.enabled = true;
         }
 
-        //Если игрок в главном меню выбрал мультиплерную игру, то осуществляем проверку принадлежности префаба этому игроку
+        //Если игрок в главном меню выбрал мультиплерную игру, то осуществляем проверку принадлежности префаба этому игроку (хз почему, но без такого ограничения мультиплеер не работает)
         void Update()
         {
             if (dataControl.isItCoopGame)

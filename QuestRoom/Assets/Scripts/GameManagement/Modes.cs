@@ -21,7 +21,11 @@ public class Modes : MonoBehaviour
     public bool isClickModeActive = false;
 
     public List<bool> questTasks = new List<bool>(3) { false, false, false };
-    
+
+    [SerializeField] public Animator seifCapAnim;
+    [SerializeField] public Animator openDoorAnim;
+    [SerializeField] public Animator TVButtonAnim;
+    [SerializeField] public Animator LaptopButtonAnim;
     [SerializeField] public GameObject TV = null;
     [SerializeField] public GameObject cat = null;
     [SerializeField] public GameObject seifCap = null;
@@ -34,13 +38,13 @@ public class Modes : MonoBehaviour
     [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private TurnOnAndOpenLaptop laptopControl;
     [SerializeField] private StopGas gasScript = null;
-
+    
     [SerializeField] private AudioSource audio;
     [SerializeField] private AudioClip doorSound;
 
     private GameObject _player = null;
     private GameObject _camera = null;
-    private GameObject lockPoint;
+    private Transform lockPoint;
     private Vector3 oldPosition;
     private Quaternion oldRotation;
 
@@ -51,12 +55,13 @@ public class Modes : MonoBehaviour
     {
         //Ищем игрока через FIND, потому что он загружается из префаба (нельзя установить прямую ссылку)
         _player = GameObject.FindGameObjectWithTag("Player");
+        // Получаем доступ к скрипту, который управляет движением игрока
         playerMovingScript = _player.GetComponent<FPSInput>();
         // Получаем доступ к управляющему скрипту камеры
         _camera = Camera.main.gameObject;
         cameraRotationScript = _camera.GetComponent<MouseLook>();
         // Получаем доступ к точке, на которую будем "вешать" все головоломки
-        lockPoint = cameraRotationScript.lockPoint;
+        lockPoint = cameraRotationScript.lockPoint.transform;
     }
 
     //Режим сбора предметов: "замораживаем" игрока и активируем курсор (и наоборот)
@@ -126,7 +131,7 @@ public class Modes : MonoBehaviour
             oldRotation = laptop.transform.rotation;
             laptop.transform.SetParent(_camera.transform);
             //"Вешаем" ноутбук на координаты пустого объекта, закреплённого перед камерой
-            laptop.transform.SetPositionAndRotation(lockPoint.transform.position, lockPoint.transform.rotation);
+            laptop.transform.SetPositionAndRotation(lockPoint.position, lockPoint.rotation);
             isLaptopModeActive = true;
             //Активируем кота: он запрыгивает на ящик, чтобы навести игрока на спасительную монтировку
             CatBehavior cB = cat.GetComponent<CatBehavior>();
