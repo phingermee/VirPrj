@@ -13011,12 +13011,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: -5716681864270162303, guid: 45fb3b613218da844b047d1f9349e0d6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 45fb3b613218da844b047d1f9349e0d6, type: 3}
---- !u!4 &784750741 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -5928168254548412264, guid: 45fb3b613218da844b047d1f9349e0d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 784750740}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &784750742 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 45fb3b613218da844b047d1f9349e0d6,
@@ -14407,12 +14401,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214b673e61a328f4b97a4c1f1bba63d3, type: 3}
---- !u!4 &1112456993 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6908924051763956643, guid: 214b673e61a328f4b97a4c1f1bba63d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1112456992}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1112456994 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6424270456697187808, guid: 214b673e61a328f4b97a4c1f1bba63d3,
@@ -15804,9 +15792,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMovingPossible: 0
-  seif: {fileID: 784750741}
-  TV: {fileID: 1887183469}
-  door: {fileID: 1112456993}
+  targetsList:
+  - {fileID: 966755688}
+  - {fileID: 1154868726}
+  - {fileID: 1887183469}
 --- !u!195 &1263751002
 NavMeshAgent:
   m_ObjectHideFlags: 0

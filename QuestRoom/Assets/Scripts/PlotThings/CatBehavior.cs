@@ -22,23 +22,17 @@ public class CatBehavior : MonoBehaviour
     public bool isMovingPossible;
 
     //Ограничиваем число целей для котика (их всего три)
+    private int targetIndex = 0;
     public int TargetIndex
     {
-        get
-        { return targetIndex; }
-        set
-        { targetIndex = value < 3 ? value : 0; }
+        get => targetIndex;
+        set => targetIndex = value < 3 ? value : 0;
     }
-    private int targetIndex = 0;
-
-    [SerializeField] private Transform seif;
-    [SerializeField] private Transform TV;
-    [SerializeField] private Transform door;
 
     //Создём объект аниматора, через который будем получать доступ к анимационным состояниям котика
     private Animator anim;
     //Создаём список целей, к которым направляемся котик
-    private List<Transform> targetsList;
+    [SerializeField]  private List<Transform> targetsList;
     //Цель котика
     private Transform target;
     private Vector3 startPosition;
@@ -50,9 +44,6 @@ public class CatBehavior : MonoBehaviour
         startPosition = transform.position;
         anim = GetComponent<Animator>();
         isMovingPossible = true;
-
-        //Находим все цели котика и загоняем их в список
-        targetsList = new List<Transform> { seif, door, TV };
 
         //Выбираем первую цель
         target = targetsList[TargetIndex];
@@ -121,7 +112,7 @@ public class CatBehavior : MonoBehaviour
         }
     }
 
-    //Когда игрок наконец-то открывает сейф, котик спрыгивает на землю, чтоб не мешать (переключатель isMovingPossible показывает, какуб часть функции JumpAndShow() стоит задействовать - спрыгивание или запрыгивание)
+    //Когда игрок наконец-то открывает сейф, котик спрыгивает на землю, чтоб не мешать (переключатель isMovingPossible показывает, какую часть функции JumpAndShow() стоит задействовать - спрыгивание или запрыгивание)
     public void CatBack()
     {
         isMovingPossible = true;
